@@ -1,0 +1,89 @@
+{% load static %}
+<script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<!--  Bootstrap tooltips  -->
+<script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+<!--  Bootstrap core JavaScript  -->
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<!--  MDB core JavaScript  -->
+<script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+{#<script type="text/javascript" src="{% static 'js/mdb-plugins.min.js' %}"></script>#}
+{#<script type="text/javascript" src="{% static 'js/compiled-addons.min.js' %}"></script>#}
+
+<!-- Custom scripts -->
+<script>
+    // Animation init
+    new WOW().init();
+
+    // MDB Lightbox Init
+    $(function () {
+        $("#mdb-lightbox-ui").load("{% static 'mdb-addons/mdb-lightbox-ui.html' %}");
+    });
+
+    $(document).ready(function () {
+        $('.mdb-select').materialSelect();
+        $('.mdb-select').click(e => e.stopPropagation());
+    });
+
+</script>
+<script>
+    $(function () {
+        var selectedClass = "";
+        $(".filter").click(function () {
+            selectedClass = $(this).attr("data-rel");
+            $("#gallery").fadeTo(100, 0.1);
+            $("#gallery div").not("." + selectedClass).fadeOut().removeClass('animation');
+            setTimeout(function () {
+                $("." + selectedClass).fadeIn().addClass('animation');
+                $("#gallery").fadeTo(300, 1);
+            }, 300);
+        });
+    });
+</script>
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+// Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+// Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+<script>
+    function getCookie(name) {
+        var value = '; ' + document.cookie,
+            parts = value.split('; ' + name + '=');
+        if (parts.length == 2) return parts.pop().split(';').shift();
+    }
+
+    function reload_page() {
+        window.location.reload(true);
+    }
+
+    $(function () {
+        $('#language-list a').on('click', function (event) {
+            event.preventDefault();
+            var target = $(event.target);
+            var url = target.attr('href');
+            var language_code = target.data('data-language-code');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {language: language_code},
+                headers: {"X-CSRFToken": getCookie('csrftoken')}
+            }).done(function (data, textStatus, jqXHR) {
+                reload_page();
+                console.log('1')
+            });
+        });
+    });
+</script>

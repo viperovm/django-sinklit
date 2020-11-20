@@ -1,0 +1,198 @@
+{% extends 'pages.html' %}
+{% load static %}
+{% block title %}
+    {{ seo.title }}
+{% endblock %}
+{% block seo %}
+    {% if seo.description %}
+
+        <meta name="description" content="{{ seo.description }}">
+
+    {% endif %}
+    {% if seo.og_title %}
+
+        <meta property="og:title" content="{{ seo.og_title }}">
+
+    {% elif seo.title %}
+
+        <meta property="og:title" content="{{ seo.title }}">
+
+    {% endif %}
+    {% if seo.og_description %}
+
+        <meta property="og:description" content="{{ seo.og_description }}">
+
+    {% elif seo.description %}
+
+        <meta property="og:description" content="{{ seo.description }}">
+
+    {% endif %}
+    {% if seo.og_url %}
+
+        <meta property="og:url" content="{{ seo.og_url }}">
+
+    {% elif request.path %}
+
+        <meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+    {% endif %}
+    {% if seo.og_image %}
+
+        <meta property="og:image" content="{{ seo.og_image }}">
+
+    {% endif %}
+    {% if seo.og_type %}
+
+        <meta property="og:type" content="{{ seo.og_type }}">
+
+    {% endif %}
+    {% if seo.meta1 %}
+
+        {{ seo.meta1|safe }}
+
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <section>
+
+    {% if seo.meta2 %}
+
+        {{ seo.meta2|safe }}
+
+    {% endif %}
+
+        <div class="view"
+             style="height: 70vh; background-image: url('{% static 'img/construction4.jpg' %}'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+
+        </div>
+
+    </section>
+
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main Layout-->
+    <main>
+
+        <div class="container-fluid mb-5">
+
+            <!--Grid row-->
+            <div class="row" style="margin-top: -100px;">
+
+                <!--Grid column-->
+                <div class="col-md-12 px-lg-5">
+                    <!--Card-->
+                    <div class="card pb-5 mx-md-3">
+                        <div class="card-body">
+
+                            <div class="container">
+
+                                <!--Section heading-->
+                                <h1 class="text-center h1 pt-4 mb-3">
+                                    <strong>Новости</strong>
+                                </h1>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-xl-12 d-flex justify-content-center">
+                                        <p class="font-small dark-grey-text mb-1">
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!--Grid row-->
+                                <div class="row pt-lg-5 pt-3">
+
+                                    <section>
+                                        <div class="container">
+
+                                            <div class="row text-center mb-2">
+
+                                                {% for item in news %}
+
+                                                    <div class="col-lg-4 col-md-12 mb-4">
+                                                        <!--Featured image-->
+                                                        <div class="view overlay z-depth-1 mb-2">
+                                                            <img src="{{ item.img.url }}"
+                                                                 class="img-fluid" alt="First sample image">
+                                                            <a>
+                                                                <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <h4 class="mb-2 mt-4 font-weight-bold">{{ item.title }}</h4>
+
+                                                        <!--Grid row-->
+                                                        <div class="row">
+
+                                                            <!--Grid column-->
+                                                            <div class="col-lg-6 col-md-6 text-lg-right ">
+                                                                <p class="grey-text">
+                                                                    <i class="far fa-clock-o" aria-hidden="true"></i>
+                                                                    July
+                                                                    5, 2020</p>
+                                                            </div>
+                                                            <!--Grid column-->
+
+                                                            <!--Grid column-->
+                                                            <div class="col-lg-6 col-md-6 text-lg-left">
+                                                                <p class="grey-text">
+                                                                    <i class="far fa-comment-dots"
+                                                                       aria-hidden="true"></i> 6
+                                                                    Comments</p>
+                                                            </div>
+                                                            <!--Grid column-->
+
+                                                        </div>
+                                                        <!--Grid row-->
+                                                        <p class="dark-grey-text">{{ item.content|truncatechars:110 }}</p>
+                                                        <a href="{{ item.get_absolute_url }}"
+                                                           class="text-uppercase font-small font-weight-bold spacing">Read
+                                                            more</a>
+                                                        <hr class="mt-1" style="max-width: 90px">
+                                                    </div>
+
+                                                    {% if forloop.counter|divisibleby:"3" %}
+
+                                                        </div>
+                                                        <div class="row text-center mb-2">
+
+                                                    {% endif %}
+
+                                                {% endfor %}
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                            <!--Pagination-->
+
+                                                {% include 'inc/_pagination.html' %}
+
+                                                <!--Pagination-->
+
+                                        </div>
+
+                                    </section>
+
+
+                                </div>
+                                <!--/Grid row-->
+
+                            </div>
+                            <!--Grid column-->
+
+                        </div>
+                        <!--Grid row-->
+
+                    </div>
+                    <!--/Card-->
+                </div>
+                <!--/Grid column-->
+            </div>
+            <!--/Grid row-->
+        </div>
+
+    </main>
+
+{% endblock %}

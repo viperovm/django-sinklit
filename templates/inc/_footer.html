@@ -1,0 +1,102 @@
+{% load static i18n %}
+<footer class="page-footer footer-tiles text-center text-md-left pt-4 mt-4">
+
+    <!-- Footer Links -->
+    <div class="container mt-1 mb-2">
+
+        <div class="row pl-3">
+            <div class="d-block w-100">
+                <h5>Выбор языка</h5>
+            </div>
+            <div class="d-block">
+                <form action="{% url 'set_language' %}" method="post" class="d-flex">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="/"/>
+                    {#                    <select class="selectpicker select-language" name="language" style="color: white!important;"#}
+                    {#                            onchange="this.form.submit()">#}
+                    <select class="mdb-select md-form form-language" name="language" style="color: white!important;"
+                            onchange="this.form.submit()">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}
+                                    selected="selected"{% endif %}
+                                    data-icon="{% get_static_prefix %}img/flags/{{ language.code }}.png"
+                                    class="rounded-circle">{% if language.code == 'ru' %}Русский{% else %}English{% endif %}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+        </div>
+        <hr style="border-top: 1px solid grey;"/>
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-xl-5 col-lg-5 mt-2 mb-1 wow fadeIn" data-wow-delay="0.3s">
+                <!-- About -->
+                <h5 class="text-uppercase mb-4"><strong>ООО СИНКЛИТ</strong></h5>
+
+                <p>SINKLIT BUSINESS - производитель инновационных декоративных панелей для вентилируемых фасадов.
+                    Ассортимент строительных материалов, отвечающих требованиям последних тенденций и инноваций во всех
+                    климатических зонах, постоянно обновляется. Компания SINKLIT BUSINESS следит за тенденциями новейших
+                    разработок в области дизайна и технологий.</p>
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="w-100 clearfix d-md-none">
+
+            <!-- Grid column -->
+            <div class="col-xl-4 ml-auto col-lg-4 mt-2 mb-1 col-md-4 wow fadeIn" data-wow-delay="0.3s">
+                <!-- Search -->
+                <h5 class="text-uppercase mb-4"><strong>ООО СИНКЛИТ</strong></h5>
+                <!-- Info -->
+                <ul>
+                    {% for item in services_list %}
+                        <li class="black-text list-unstyled"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="w-100 clearfix d-md-none">
+
+            <!-- Grid column -->
+            <div class="col-xl-3 ml-auto col-lg-4 mt-2 mb-1 col-md-3 wow fadeIn" data-wow-delay="0.3s">
+
+                <!-- Title -->
+                <h5 class="text-uppercase mb-4"><strong>Наши контакты:</strong></h5>
+
+                <!-- Opening hours table -->
+                <ul>
+                    <li class="list-unstyled pb-2"><i data-test="fa" class="fa fa-map-marker-alt pr-2"></i>Москва, Люсиновская, 12-23</li>
+                    <li class="list-unstyled pb-2"><i data-test="fa" class="fa fa-phone pr-2"></i>+7 499 322 88 51</li>
+                    <li class="list-unstyled pb-2"><i data-test="fa" class="fa fa-envelope pr-2"></i>contact@example.com</li>
+                </ul>
+
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright py-3 text-center">
+        <div class="container-fluid">
+            © 2020 Copyright: <a href="http://sinklitcc.ru/" target="_blank">
+            ООО "Синклит" </a> | Made with <i class="fas fa-heart"></i> by
+            <a href="http://slownut.com" target="_blank"> SlowNut</a>
+
+        </div>
+    </div>
+    <!-- Copyright -->
+
+</footer>

@@ -1,0 +1,235 @@
+{% extends 'pages.html' %}
+{% load static %}
+{% block title %}
+    {{ seo.title }}
+{% endblock %}
+{% block seo %}
+    {% if seo.description %}
+
+        <meta name="description" content="{{ seo.description }}">
+
+    {% endif %}
+    {% if seo.og_title %}
+
+        <meta property="og:title" content="{{ seo.og_title }}">
+
+    {% elif seo.title %}
+
+        <meta property="og:title" content="{{ seo.title }}">
+
+    {% endif %}
+    {% if seo.og_description %}
+
+        <meta property="og:description" content="{{ seo.og_description }}">
+
+    {% elif seo.description %}
+
+        <meta property="og:description" content="{{ seo.description }}">
+
+    {% endif %}
+    {% if seo.og_url %}
+
+        <meta property="og:url" content="{{ seo.og_url }}">
+
+    {% elif request.path %}
+
+        <meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+    {% endif %}
+    {% if seo.og_image %}
+
+        <meta property="og:image" content="{{ seo.og_image }}">
+
+    {% endif %}
+    {% if seo.og_type %}
+
+        <meta property="og:type" content="{{ seo.og_type }}">
+
+    {% endif %}
+    {% if seo.meta1 %}
+
+        {{ seo.meta1|safe }}
+
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <section>
+
+    {% if seo.meta2 %}
+
+        {{ seo.meta2|safe }}
+
+    {% endif %}
+
+        <div class="view"
+             style="height: 70vh; background-image: url('{% static 'img/construction4.jpg' %}'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+
+        </div>
+
+    </section>
+
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main Layout-->
+    <main>
+
+        <div class="container-fluid mb-5">
+
+            <!--Grid row-->
+            <div class="row" style="margin-top: -100px;">
+
+                <!--Grid column-->
+                <div class="col-md-12 px-lg-5">
+                    <!--Card-->
+                    <div class="card pb-5 mx-md-3">
+                        <div class="card-body">
+
+                            <div class="container">
+
+                                <!--Section heading-->
+                                <h1 class="text-center h1 pt-4 mb-3">
+                                    <strong>Отзывы клиентов</strong>
+                                </h1>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-xl-12 d-flex justify-content-center">
+                                        <p class="font-small dark-grey-text mb-1">
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!--Grid row-->
+                                <div class="row pt-lg-5 pt-3">
+
+                                    <div class="container-fluid">
+
+                                        <div class="container">
+                                            <!-- Modal -->
+                                            {% for item in reviews %}
+
+                                                <div class="modal fade" id="testimonial{{ forloop.counter }}"
+                                                     tabindex="-1" role="dialog"
+                                                     aria-labelledby="exampleModalLabel"
+                                                     aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg modal-dialog-centered"
+                                                         role="document">
+                                                        <div class="modal-content">
+                                                            <section class="mx-md-5 text-center text-lg-left">
+                                                                <div class="row d-flex justify-content-center">
+                                                                    <div class="col-md-12">
+                                                                        <div class="row p-5">
+                                                                            <div class="col-lg-8 d-flex flex-column justify-content-between">
+                                                                                <p class="text-muted mb-4">{{ item.content }}</p>
+                                                                                <div>
+                                                                                    <p class="font-weight-bold lead mb-2">
+                                                                                        <strong>{{ item.name }}</strong>
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-4 d-flex mb-2 align-items-center">
+                                                                                <div class="avatar mx-4 w-100 white d-flex justify-content-center align-items-center">
+                                                                                    <img src="{% if item.img %} {{ item.img.url }} {% else %} {% static 'img/silouet.jpg' %} {% endif %}"
+                                                                                         class="rounded-circle img-fluid z-depth-1"
+                                                                                         alt="avatar">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            {% endfor %}
+
+                                            <!-- Section: Testimonials v.1 -->
+                                            <section id="testimonials" class="mb-0 py-5">
+
+                                                <!-- Grid row -->
+                                                <div class="row mt-1-half mb-4">
+
+                                                    {% for item in reviews %}
+
+                                                        <div class="col-lg-4 col-md-12 mt-2">
+
+                                                            <!-- Card -->
+                                                            <div class="card testimonial-card mb-4">
+
+                                                                <!-- Background color -->
+                                                                <div class="card-up {% if forloop.first %}info-color{% elif forloop.last %} indigo{% else %} blue-gradient{% endif %}">
+                                                                </div>
+
+                                                                <!-- Avatar -->
+                                                                <div class="avatar mx-auto white"><img
+                                                                        src="
+                                                                                {% if item.img %}{{ item.img.url }}{% else %}{% static 'img/silouet.jpg' %}{% endif %}"
+                                                                        class="rounded-circle img-responsive">
+                                                                </div>
+
+                                                                <div class="card-body">
+                                                                    <!-- Name -->
+                                                                    <h4 class="card-title mt-2">
+                                                                        <strong>{{ item.name }}</strong>
+                                                                    </h4>
+                                                                    <hr class="mb-3">
+                                                                    <!-- Quotation -->
+                                                                    <p>
+                                                                        <i class="fas fa-quote-left"></i> {{ item.content|truncatechars:110 }}
+                                                                    </p>
+                                                                    <button type="button" class="btn btn-primary"
+                                                                            data-toggle="modal"
+                                                                            data-target="#testimonial{{ forloop.counter }}">
+                                                                        Подробнее
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                            <!-- Card -->
+
+                                                        </div>
+
+                                                    {% endfor %}
+
+                                                </div>
+
+                                                <!--Pagination-->
+
+                                                {% include 'inc/_pagination.html' %}
+
+                                                <!--Pagination-->
+                                                <!-- Grid row -->
+
+                                            </section>
+                                            <!-- Section: Testimonials v.1 -->
+
+                                        </div>
+
+                                    </div>
+
+                                    <!--Grid column-->
+
+                                    <!--/Grid column-->
+
+                                </div>
+                                <!--/Grid row-->
+
+                            </div>
+                            <!--Grid column-->
+
+                        </div>
+                        <!--Grid row-->
+
+                    </div>
+                    <!--/Card-->
+                </div>
+                <!--/Grid column-->
+            </div>
+            <!--/Grid row-->
+        </div>
+
+    </main>
+
+{% endblock %}

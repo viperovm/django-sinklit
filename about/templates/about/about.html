@@ -1,0 +1,84 @@
+{% extends 'pages.html' %}
+{% load static %}
+{% block title %}
+    {{ seo.title }}
+{% endblock %}
+{% block seo %}
+    {% if seo.description %}
+        <meta name="description" content="{{ seo.description }}">
+    {% endif %}
+    {% if seo.og_title %}
+        <meta property="og:title" content="{{ seo.og_title }}">
+    {% elif seo.title %}
+        <meta property="og:title" content="{{ seo.title }}">
+    {% endif %}
+    {% if seo.og_description %}
+        <meta property="og:description" content="{{ seo.og_description }}">
+    {% elif seo.description %}
+        <meta property="og:description" content="{{ seo.description }}">
+    {% endif %}
+    {% if seo.og_url %}
+        <meta property="og:url" content="{{ seo.og_url }}">
+    {% elif request.path %}
+        <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    {% endif %}
+    {% if seo.og_image %}
+        <meta property="og:image" content="{{ seo.og_image }}">
+    {% endif %}
+    {% if seo.og_type %}
+        <meta property="og:type" content="{{ seo.og_type }}">
+    {% endif %}
+    {% if seo.meta1 %}
+        {{ seo.meta1|safe }}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if about.img %}
+        <section>
+            <div class="view"
+                 style="height: 70vh; background-image: url('{{ about.img.url }}'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+            </div>
+        </section>
+    {% endif %}
+    </header>
+
+    <main>
+        <div class="container-fluid mb-5">
+            <div class="row" style="margin-top: -100px;">
+                <div class="col-md-12 px-lg-5">
+                    <div class="card pb-5 mx-md-3">
+                        <div class="card-body">
+                            <div class="container">
+                                {% if about.title %}
+                                    <h1 class="text-center h1 pt-4 mb-3">
+                                        <strong>{{ about.title }}</strong>
+                                    </h1>
+                                {% endif %}
+                                {% if about.subtitle %}
+                                    <div class="row">
+                                        <div class="col-md-12 col-xl-12 d-flex justify-content-center">
+                                            <p class="font-small grey-text mb-0 ml-3">{{ about.subtitle }}</p>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if about.content %}
+                                    <div class="row pt-lg-5 pt-3">
+                                        <div class="col-md-12 col-xl-12">
+                                            <div class="row mt-3">
+                                                {{ about.content|safe }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <h1 class="text-center h1 pt-4 mb-3">
+                                        <strong>Раздел в процессе разработки</strong>
+                                    </h1>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

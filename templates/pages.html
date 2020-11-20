@@ -1,0 +1,53 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    {% block seo %}{% endblock %}
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'fontawesome/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/brands.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/regular.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/solid.css' %}">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style>
+        {#html,#}
+        {#body,#}
+        {#header,#}
+        {#.view.jarallax {#}
+        {#    height: 90%;#}
+        {#    min-height: 70%;#}
+        #}#}
+
+        .construction-lp-header .view {
+            height: 70vh;
+        }
+
+    </style>
+</head>
+<body class="construction-lp">
+
+<!-- Navigation & Intro -->
+<header class="construction-lp-header">
+    <!-- Navbar -->
+{% include 'inc/_nav_pages.html' %}
+
+    {% block content %}
+    {% endblock %}
+
+
+{% include 'inc/_footer.html' %}
+
+{% include 'inc/_scripts.html' %}
+
+</body>
+
+</html>

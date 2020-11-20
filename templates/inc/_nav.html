@@ -1,0 +1,45 @@
+{% load static i18n %}
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}"><h1 class="h2">Синклит</h1></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto smooth-scroll">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Главная <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}" data-offset="90">О компании</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" data-offset="90">Услуги</a>
+                    <div class="dropdown-menu dropdown-dark" aria-labelledby="navbarDropdownMenuLink">
+                        {% for item in services_list %}
+                            <a class="dropdown-item" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'view_reviews' %}" data-offset="90">Отзывы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'portfolio' %}" data-offset="30">Портфолио</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'view_news' %}" data-offset="30">Новости</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}" data-offset="90">Контакты</a>
+                </li>
+            </ul>
+            <!-- Social Icon  -->
+            <ul class="navbar-nav nav-flex-icons">
+
+            </ul>
+        </div>
+    </div>
+</nav>
